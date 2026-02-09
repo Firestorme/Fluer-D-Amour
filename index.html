@@ -1,0 +1,457 @@
+<!DOCTYPE html>
+<html lang="id">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Fleur D'Amour | Premium Linktree</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Lucide Icons CDN -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;1,700&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap"
+      rel="stylesheet"
+    />
+
+    <style>
+      :root {
+        --bg-light: #f6ede8;
+        --surface-light: #ffffff;
+        --accent-light: #d9a5b3;
+        --text-primary-light: #2e2e2e;
+        --border-light: #e5d5cb;
+
+        --bg-dark: #1e1e1e;
+        --surface-dark: #2a2a2a;
+        --accent-dark: #cba17d;
+        --text-primary-dark: #efefef;
+        --border-dark: #3a3a3a;
+      }
+
+      body {
+        font-family: "Plus Jakarta Sans", sans-serif;
+        transition: background-color 0.6s cubic-bezier(0.4, 0, 0.2, 1),
+          color 0.5s ease;
+        overflow-x: hidden;
+        min-height: 100vh;
+      }
+
+      .light-mode {
+        background-color: var(--bg-light);
+        color: var(--text-primary-light);
+      }
+      .dark-mode {
+        background-color: var(--bg-dark);
+        color: var(--text-primary-dark);
+      }
+
+      @keyframes rotate-gradient {
+        0% {
+          transform: rotate(0deg);
+        }
+        100% {
+          transform: rotate(360deg);
+        }
+      }
+
+      .profile-frame {
+        position: relative;
+        width: 140px;
+        height: 140px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        overflow: hidden;
+        border-radius: 2.8rem;
+      }
+
+      .rotating-bg {
+        position: absolute;
+        width: 200%;
+        height: 200%;
+        background: conic-gradient(
+          from 0deg,
+          transparent,
+          var(--accent-light),
+          #fbcfe8,
+          var(--accent-light),
+          transparent
+        );
+        animation: rotate-gradient 4s linear infinite;
+      }
+
+      .dark-mode .rotating-bg {
+        background: conic-gradient(
+          from 0deg,
+          transparent,
+          var(--accent-dark),
+          #4b3f31,
+          var(--accent-dark),
+          transparent
+        );
+      }
+
+      .glass-card {
+        transition: all 0.5s cubic-bezier(0.2, 0.8, 0.2, 1);
+        border: 1px solid transparent;
+      }
+
+      .light-mode .glass-card {
+        background: var(--surface-light);
+        border-color: var(--border-light);
+      }
+      .dark-mode .glass-card {
+        background: var(--surface-dark);
+        border-color: var(--border-dark);
+      }
+
+      .font-serif {
+        font-family: "Playfair Display", serif;
+      }
+
+      /* --- LINK CARD INTERACTION --- */
+      .link-card {
+        position: relative;
+        transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+        overflow: visible;
+        transform: scale(1);
+        z-index: 1;
+      }
+
+      .link-card:hover {
+        transform: scale(1.05);
+        z-index: 10;
+        box-shadow: 0 20px 40px -10px rgba(0, 0, 0, 0.12);
+      }
+
+      .btn-accent {
+        transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+        background: linear-gradient(135deg, #d9a5b3 0%, #b88593 100%);
+        color: #ffffff;
+        border: none !important;
+      }
+      .dark-mode .btn-accent {
+        background: linear-gradient(135deg, #cba17d 0%, #a67e5b 100%);
+        color: #1e1e1e;
+      }
+
+      /* --- STYLING IKON NAVIGASI (OPTIMASI DARK MODE) --- */
+      .nav-icon-wrapper {
+        width: 38px;
+        height: 38px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border-radius: 12px;
+        transition: all 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
+        background: rgba(0, 0, 0, 0.04);
+      }
+
+      /* Ikon lebih terang & glowy di Dark Mode */
+      .dark-mode .nav-icon-wrapper {
+        background: rgba(255, 255, 255, 0.08);
+      }
+      .dark-mode .nav-icon-wrapper i {
+        color: rgba(255, 255, 255, 0.95) !important;
+        filter: drop-shadow(0 0 8px rgba(255, 255, 255, 0.3));
+      }
+
+      /* Ikon pada banner spesial (featured) */
+      .btn-accent .nav-icon-wrapper {
+        background: rgba(255, 255, 255, 0.2);
+      }
+      .btn-accent .nav-icon-wrapper i {
+        color: #ffffff !important;
+      }
+
+      /* Hover Effect */
+      .link-card:hover .nav-icon-wrapper {
+        transform: rotate(45deg);
+      }
+
+      .dark-mode .link-card:hover .nav-icon-wrapper {
+        background: rgba(255, 255, 255, 0.2);
+      }
+
+      .btn-accent:hover .nav-icon-wrapper {
+        transform: rotate(0deg) scale(1.1);
+      }
+
+      /* --- TOGGLE THEME --- */
+      .luxury-toggle {
+        width: 68px;
+        height: 36px;
+        border-radius: 100px;
+        cursor: pointer;
+        position: relative;
+        display: flex;
+        align-items: center;
+        padding: 4px;
+        transition: all 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
+        border: 1px solid;
+      }
+
+      .light-mode .luxury-toggle {
+        background: linear-gradient(135deg, #f9ebe2 0%, #d9a5b3 100%);
+        border-color: #e5d5cb;
+      }
+      .dark-mode .luxury-toggle {
+        background: linear-gradient(135deg, #333333 0%, #1e1e1e 100%);
+        border-color: #444444;
+      }
+
+      .knob {
+        width: 28px;
+        height: 28px;
+        border-radius: 50%;
+        z-index: 10;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        transition: transform 0.6s cubic-bezier(0.34, 1.56, 0.64, 1),
+          background 0.5s ease;
+      }
+
+      .light-mode .knob {
+        transform: translateX(0);
+        background: #ffffff;
+        color: #d9a5b3;
+      }
+      .dark-mode .knob {
+        transform: translateX(32px);
+        background: #1e1e1e;
+        color: var(--accent-dark);
+      }
+
+      i[data-lucide] {
+        width: 18px;
+        height: 18px;
+        transition: all 0.4s ease;
+      }
+    </style>
+  </head>
+  <body class="light-mode">
+    <div id="main-container" class="max-w-xl mx-auto px-6 py-12 relative z-10">
+      <!-- Header -->
+      <div class="flex justify-between items-center mb-16">
+        <div
+          class="flex items-center gap-2 px-4 py-1.5 rounded-full glass-card text-[10px] font-bold uppercase tracking-widest"
+        >
+          <span class="w-2 h-2 rounded-full bg-[#D9A5B3] animate-pulse"></span>
+          Official Store
+        </div>
+
+        <div class="flex items-center gap-4">
+          <button
+            onclick="copyLink()"
+            id="share-btn"
+            class="w-10 h-10 rounded-full glass-card flex items-center justify-center hover:scale-110 active:scale-90 transition-all"
+          >
+            <i data-lucide="share-2"></i>
+          </button>
+          <div onclick="toggleTheme()" class="luxury-toggle">
+            <div class="knob"><i id="theme-icon" data-lucide="sun"></i></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Profil -->
+      <header class="text-center mb-16">
+        <div class="relative inline-block group">
+          <div
+            class="absolute inset-0 opacity-40 blur-3xl rounded-full scale-110 bg-rose-400 dark:bg-amber-400 group-hover:scale-125 transition-transform duration-700"
+          ></div>
+          <div
+            class="profile-frame shadow-2xl transition-transform duration-700 hover:scale-105"
+          >
+            <div class="rotating-bg"></div>
+            <div
+              class="relative w-[132px] h-[132px] bg-white dark:bg-[#2A2A2A] rounded-[2.5rem] z-10 flex items-center justify-center"
+            >
+              <img
+                src="profile.jpg"
+                alt="Profil"
+                onerror="this.src='assets/profile.jpg'"
+                class="w-32 h-32 rounded-[2.2rem] object-cover relative z-20 transition-transform duration-500 group-hover:rotate-2"
+              />
+            </div>
+          </div>
+          <div
+            class="absolute -bottom-2 -right-2 z-30 bg-white dark:bg-stone-800 p-2 rounded-2xl shadow-lg border border-stone-100 dark:border-stone-700 animate-bounce"
+          >
+            <i
+              data-lucide="badge-check"
+              class="text-[#D9A5B3] dark:text-[#CBA17D]"
+            ></i>
+          </div>
+        </div>
+        <div class="mt-8">
+          <h1
+            class="text-4xl font-serif font-bold mb-3 tracking-tight text-[#CBA17D] dark:text-[#EFEFEF]"
+          >
+            Fleur D'Amour
+          </h1>
+          <p
+            class="text-[11px] font-black uppercase tracking-[0.4em] mb-8 opacity-60"
+          >
+            Butik Hadiah & Florist Premium
+          </p>
+        </div>
+      </header>
+
+      <!-- Container Link -->
+      <div id="link-container" class="space-y-4 mb-24"></div>
+
+      <!-- Footer -->
+      <footer
+        class="text-center pt-8 border-t border-stone-200/50 dark:border-stone-800/50"
+      >
+        <p class="text-[10px] font-black uppercase tracking-[0.6em] opacity-40">
+          © 2022 Fleur D'Amour
+        </p>
+      </footer>
+    </div>
+
+    <script>
+      const waNumber = "6281269866936";
+      const waMessage = "Hai Ka, Saya mau menanyakan Produk Fluer D'Amour.";
+      const waLink = `https://wa.me/${waNumber}?text=${encodeURIComponent(
+        waMessage
+      )}`;
+
+      const MY_LINKS = [
+        {
+          title: "Produk Ramadan 2026",
+          subtitle: "Koleksi Hampers & Hadiah Idul Fitri",
+          url: waLink,
+          icon: "moon-star",
+          isFeatured: true,
+          badge: "Highlight",
+          navIcon: "sparkles",
+        },
+        {
+          title: "Katalog Produk",
+          subtitle: "Daftar harga & pilihan paket lengkap",
+          url: "https://fleurdamour.id/catalog",
+          icon: "book-open",
+          isFeatured: false,
+          navIcon: "arrow-up-right",
+        },
+        {
+          title: "WhatsApp",
+          subtitle: "Konsultasi & pesanan cepat via Admin",
+          url: waLink,
+          icon: "message-circle",
+          isFeatured: false,
+          navIcon: "arrow-up-right",
+        },
+        {
+          title: "Instagram",
+          subtitle: "Inspirasi harian @fluer.damour",
+          url: "https://www.instagram.com/fluer.damour/",
+          icon: "instagram",
+          isFeatured: false,
+          navIcon: "arrow-up-right",
+        },
+        {
+          title: "Shopee",
+          subtitle: "Belanja produk pilihan kami di Shopee Mall",
+          url: "https://s.shopee.co.id/8pgBbtNdRv",
+          icon: "shopping-bag",
+          isFeatured: false,
+          navIcon: "arrow-up-right",
+        },
+        {
+          title: "Website",
+          subtitle: "Kunjungi situs resmi fleurdamour.id",
+          url: "https://fleurdamour.id",
+          icon: "globe",
+          isFeatured: false,
+          navIcon: "arrow-up-right",
+        },
+      ];
+
+      function renderLinks() {
+        const container = document.getElementById("link-container");
+        if (!container) return;
+        container.innerHTML = MY_LINKS.map(
+          (link) => `
+                <a href="${link.url}" target="_blank" class="link-card ${
+            link.isFeatured ? "btn-accent p-6" : "glass-card p-5"
+          } flex items-center rounded-[2.2rem] border shadow-sm group">
+                    <div class="w-12 h-12 rounded-2xl flex items-center justify-center mr-5 transition-transform duration-500 group-hover:rotate-12 ${
+                      link.isFeatured
+                        ? "bg-white/20"
+                        : "bg-stone-100 dark:bg-stone-800"
+                    }">
+                        <i data-lucide="${link.icon}" class="${
+            link.isFeatured
+              ? "text-white"
+              : "text-[#D9A5B3] dark:text-[#CBA17D]"
+          }"></i>
+                    </div>
+                    <div class="flex-1 text-left">
+                        <div class="flex items-center gap-2">
+                            <h3 class="font-bold ${
+                              link.isFeatured ? "text-lg text-white" : "text-md"
+                            }">${link.title}</h3>
+                            ${
+                              link.badge
+                                ? `<span class="px-2 py-0.5 rounded-lg text-[8px] font-black uppercase tracking-wider bg-white/20 text-white border border-white/30 backdrop-blur-md">${link.badge}</span>`
+                                : ""
+                            }
+                        </div>
+                        <p class="text-[11px] font-medium ${
+                          link.isFeatured ? "text-white/80" : "opacity-60"
+                        }">${link.subtitle}</p>
+                    </div>
+                    <div class="nav-icon-wrapper">
+                        <i data-lucide="${link.navIcon}" class="${
+            link.isFeatured
+              ? "text-white"
+              : "text-stone-400 dark:text-stone-500"
+          }"></i>
+                    </div>
+                </a>
+            `
+        ).join("");
+
+        if (window.lucide) lucide.createIcons();
+      }
+
+      document.addEventListener("DOMContentLoaded", renderLinks);
+
+      function toggleTheme() {
+        const body = document.body;
+        const themeIcon = document.getElementById("theme-icon");
+        const isDark = body.classList.contains("dark-mode");
+        if (isDark) {
+          body.classList.replace("dark-mode", "light-mode");
+          themeIcon.setAttribute("data-lucide", "sun");
+        } else {
+          body.classList.replace("light-mode", "dark-mode");
+          themeIcon.setAttribute("data-lucide", "moon");
+        }
+        themeIcon.innerHTML = "";
+        lucide.createIcons();
+        renderLinks();
+      }
+
+      function copyLink() {
+        const el = document.createElement("input");
+        el.value = window.location.href;
+        document.body.appendChild(el);
+        el.select();
+        document.execCommand("copy");
+        document.body.removeChild(el);
+        const btn = document.getElementById("share-btn");
+        btn.innerHTML = '<i data-lucide="check" style="color: #22c55e"></i>';
+        lucide.createIcons();
+        setTimeout(() => {
+          btn.innerHTML = '<i data-lucide="share-2"></i>';
+          lucide.createIcons();
+        }, 2000);
+      }
+    </script>
+  </body>
+</html>
